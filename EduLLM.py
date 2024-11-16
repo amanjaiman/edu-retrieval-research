@@ -82,7 +82,7 @@ class ModelWithNoRetrieval:
         elif model_name == 'claude3.5':
             self.answer_llm = ChatAnthropic(model="claude-3-5-sonnet-20240620").with_structured_output(Answer)
         else:
-            self.answer_llm = ChatOllama(model="llama3.2").with_structured_output(Answer)
+            self.answer_llm = ChatOllama(model=model_name).with_structured_output(Answer)
 
 def main(model, qcount, path):
     model = ModelWithNoRetrieval(model)
