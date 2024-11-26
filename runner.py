@@ -33,6 +33,9 @@ def main():
     parser_llm.add_argument('--qcount', type=int, help='the number of questions to run')
     parser_llm.add_argument('--path', type=str, help='the path to the question json')
 
+    report = subparsers.add_parser("generate_report", help="Generate the report for the output")
+    report.add_argument('--path', type=str, help="the path to the output csv")
+
     args = parser.parse_args()
 
     if args.command == "kg_rag":
@@ -53,6 +56,9 @@ def main():
     elif args.command == "build_index":
         import BuildIndexRetriever
         BuildIndexRetriever.main(args.dir_path, args.chunk_size)
+    elif args.command == "generate_report":
+        import GenerateReport
+        GenerateReport.main(args.path)
     else:
         parser.print_help()
 
@@ -68,3 +74,5 @@ if __name__ == "__main__":
 
 # python runner.py kg_rag --model=<MODEL> --qcount=<COUNT> --path=MedMCQA/Biochemistry_dev.json --retries=3
 # python runner.py kg_rag --model=<MODEL> --qcount=<COUNT> --path=MedMCQA/Biochemistry_dev.json --retries=3 --with_index
+
+# python runner.py generate_report --path=<PATH>

@@ -37,8 +37,9 @@ def generate_cypher_template(schema, known_nodes=[]):
     schema = schema.replace("{", "(")
     schema = schema.replace("}", ")")
 
+    formatted_nodes = '\n'.join([f"id: {node}, label: {label}\n" for (node,label) in known_nodes])
     known_nodes_prompt = f"""\nHere are the nodes that may help to answer the question:
-    {'\n'.join([f"id: {node}, label: {label}\n" for (node,label) in known_nodes])}\n""" if len(known_nodes) != 0 else ""
+    {formatted_nodes}\n""" if len(known_nodes) != 0 else ""
 
     return f"""
 You are working with the following Neo4j schema: {schema}

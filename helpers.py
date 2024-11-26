@@ -118,6 +118,6 @@ def batch_convert_to_graph_documents(
 class Answer(BaseModel):
     """The answer to the question"""
 
-    correct_answer: str = Field(description="Which answer choice is correct (A | B | C | D)")
+    correct_answer: str = Field(description="The single letter answer choice that is correct (A | B | C | D)")
     explanation: str = Field(description="Why the selected answer choice is correct")
-    confidence: str = Field(description="Your confidence as a percentage that that is the correct answer")
+    confidence: str = Field(description="Your confidence as a numerical percentage that that is the correct answer (0-100)")

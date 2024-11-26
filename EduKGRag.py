@@ -134,7 +134,7 @@ class ModelWithKG:
                         "Correct Answer": correct_answers[q_json['cop']],
                         "Generated Answer": result.correct_answer,
                         "Generated Explanation": result.explanation,
-                        "Confidence": result.confidence,
+                        "Confidence": result.confidence.split('%')[0],
                         "KG Context": context,
                         "Tries Used": tries,
                         "Time Taken": end_time - start_time
@@ -159,10 +159,11 @@ class ModelWithKG:
                 df = pd.concat([df, row_df], ignore_index=True)
         
         date = datetime.datetime.now()
-        filename = f"{questions_file_path.split('/')[1].split('.')[0]}_{num_questions}_{retry_per_question}_{date.year}{date.month}{date.day}"
+        filename = f"{questions_file_path.split('/')[1].split('.')[0]}_{num_questions}_{self.model_name}_{retry_per_question}_{date.year}{date.month}{date.day}"
         df.to_csv(f'outputs/kg_rag/{filename}.csv')
     
     def __init__(self, model_name, with_index=False):
+        self.model_name = model_name
         self.graph = Neo4jGraph()
 
         if model_name == 'gpt4o':
